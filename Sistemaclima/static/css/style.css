@@ -1,0 +1,62 @@
+/* Estilos para la página de clima */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+#climaForm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#climaForm input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+#climaForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#climaForm button:hover {
+    background-color: #45a049;
+}
+
+#resultado {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#resultado h2 {
+    margin-bottom: 10px;
+}
+
+#resultado p {
+    font-size: 18px;
+}
+

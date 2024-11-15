@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Clima</title>
+    
+    <!-- CSS interno -->
+    <style>
+        /* Estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+/* Fondo con GIF */
+body {
+    background: url('/static/images/lluvia-gif-18.gif') no-repeat center center fixed;
+            background-size: cover;
+}
+        /* Estilos de la barra de navegación */
+        nav {
+            background-color: #16b8e0;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #77b2ce;
+            text-align: center;
+        }
+
+        /* Estilos de título y formulario */
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #ad409f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Resultado del clima */
+        #resultado {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d4fc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <h1>Sistema de Clima</h1>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h2>Consulta el Clima de tu Ciudad</h2>
+        <form id="clima-form">
+            <input type="text" id="ciudad" placeholder="Ingresa una ciudad">
+            <button type="submit">Buscar</button>
+        </form>
+        <div id="resultado">
+            <!-- Aquí se mostrará el clima consultado -->
+        </div>
+    </div>
+
+    <!-- JavaScript interno -->
+    <script>
+        document.getElementById("clima-form").addEventListener("submit", async function (event) {
+            event.preventDefault();  // Evita que el formulario recargue la página
+
+            const ciudad = document.getElementById("ciudad").value;
+            try {
+                const response = await fetch(`/api/clima/${ciudad}`);
+                
+                if (!response.ok) {
+                    throw new Error('No se encontró la ciudad o hubo un problema con la API.');
+                }
+
+                const data = await response.json();
+
+                document.getElementById("resultado").innerHTML = `
+                    <h3>Clima en ${data.name}</h3>
+                    <p>Temperatura: ${data.main.temp}°C</p>
+                    <p>Humedad: ${data.main.humidity}%</p>
+                    <p>Descripción: ${data.weather[0].description}</p>
+                `;
+            } catch (error) {
+                document.getElementById("resultado").innerHTML = `
+                    <p style="color: red;">Error: ${error.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
+
